@@ -1,0 +1,41 @@
+Problem Statement:
+"AutoRent" requires a robust database system to streamline its vehicle management and rental agreements. Each vehicle in their fleet is associated with exactly one rental agreement at any given time, and each rental agreement corresponds to one unique vehicle, illustrating a one-to-one relationship. The current system lacks this precise linkage, leading to operational inefficiencies.
+
+Task 1: Database Schema Design
+
+Develop a detailed schema for "AutoRent" focusing on Vehicles and Rental_Agreements.
+Include necessary columns in each table with appropriate data types and constraints.
+Ensure your design reflects a one-to-one relationship between Vehicles and Rental_Agreements.
+
+Expected Outcome:
+A clearly defined database schema highlighting tables, columns, data types, primary keys, and foreign keys, emphasizing the one-to-one relationship.
+
+Schema Design for "AutoRent":
+
+1. Vehicles
+   - Columns:
+     - VehicleID (Primary Key, INT, NOT NULL, AUTO_INCREMENT)
+     - Make (VARCHAR(100), NOT NULL)
+     - Model (VARCHAR(100), NOT NULL)
+     - Year (YEAR, NOT NULL)
+     - VIN (VARCHAR(17), UNIQUE, NOT NULL)
+     - LicensePlate (VARCHAR(10), UNIQUE, NOT NULL)
+     - Status (VARCHAR(50), NOT NULL) -- e.g., Available, Rented, UnderMaintenance
+     - RentalAgreementID (Foreign Key, INT, UNIQUE)
+   - Constraints:
+     - Primary Key (VehicleID)
+     - Foreign Key (RentalAgreementID) references Rental_Agreements(RentalAgreementID)
+     - UNIQUE constraint on VIN and LicensePlate to ensure each vehicle has unique identifiers
+
+2. Rental_Agreements
+   - Columns:
+     - RentalAgreementID (Primary Key, INT, NOT NULL, AUTO_INCREMENT)
+     - VehicleID (Foreign Key, INT, UNIQUE, NOT NULL)
+     - CustomerID (INT, NOT NULL)
+     - RentalStartDate (DATE, NOT NULL)
+     - RentalEndDate (DATE, NOT NULL)
+     - TotalCost (DECIMAL(10, 2), NOT NULL)
+   - Constraints:
+     - Primary Key (RentalAgreementID)
+     - Foreign Key (VehicleID) references Vehicles(VehicleID)
+     - UNIQUE constraint on VehicleID to maintain one-to-one relationship

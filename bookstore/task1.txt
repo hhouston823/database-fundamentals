@@ -1,0 +1,62 @@
+Assignment Objective:
+The aim of this assignment is to apply the concepts of relational database design, normalization, and entity-relationship modeling to create an efficient and structured database for a bookstore management system, "BookHaven."
+
+Problem Statement:
+"BookHaven" is facing challenges in managing its extensive collection of books, author information, customer data, and transaction records. The current system has issues with data redundancy, inconsistency, and inefficient data retrieval. Your task is to design a relational database that addresses these problems while ensuring data integrity and ease of access.
+
+Task 1: Database Schema Design
+
+1. Design a normalized database schema for "BookHaven."
+   - Identify and create tables such as Books, Authors, Customers, and Transactions.
+   - Define columns for each table with appropriate data types and constraints.
+   - Ensure that the schema adheres to at least the Third Normal Form (3NF).
+
+Expected Outcome:
+A well-structured database schema diagram or document outlining tables, columns, data types, primary keys, foreign keys, and any relevant constraints.
+
+Table Definitions:
+
+1. Books
+   - Columns: 
+     - BookID (Primary Key, INT, NOT NULL)
+     - Title (VARCHAR(255), NOT NULL)
+     - Genre (VARCHAR(100), NOT NULL)
+     - ISBN (VARCHAR(13), UNIQUE, NOT NULL)
+     - PublicationDate (DATE, NOT NULL)
+     - AuthorID (Foreign Key, INT, NOT NULL)
+   - Constraints: 
+     - Primary Key (BookID)
+     - Foreign Key (AuthorID) references Authors(AuthorID)
+
+2. Authors
+   - Columns:
+     - AuthorID (Primary Key, INT, NOT NULL)
+     - FirstName (VARCHAR(100), NOT NULL)
+     - LastName (VARCHAR(100), NOT NULL)
+     - DateOfBirth (DATE, NOT NULL)
+   - Constraints:
+     - Primary Key (AuthorID)
+
+3. Customers
+   - Columns:
+     - CustomerID (Primary Key, INT, NOT NULL)
+     - FirstName (VARCHAR(100), NOT NULL)
+     - LastName (VARCHAR(100), NOT NULL)
+     - Email (VARCHAR(255), UNIQUE, NOT NULL)
+     - Phone (VARCHAR(15), UNIQUE, NOT NULL)
+     - Address (VARCHAR(255), NOT NULL)
+   - Constraints:
+     - Primary Key (CustomerID)
+
+4. Transactions
+   - Columns:
+     - TransactionID (Primary Key, INT, NOT NULL)
+     - CustomerID (Foreign Key, INT, NOT NULL)
+     - BookID (Foreign Key, INT, NOT NULL)
+     - TransactionDate (DATE, NOT NULL)
+     - Quantity (INT, NOT NULL)
+     - TotalPrice (DECIMAL(10, 2), NOT NULL)
+   - Constraints:
+     - Primary Key (TransactionID)
+     - Foreign Key (CustomerID) references Customers(CustomerID)
+     - Foreign Key (BookID) references Books(BookID)

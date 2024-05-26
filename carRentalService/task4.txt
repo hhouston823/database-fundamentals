@@ -1,0 +1,61 @@
+Task 4: Scenario Analysis
+
+Objective:
+Analyze and describe how the one-to-one relationship between Vehicles and Rental_Agreements will handle scenarios such as new vehicle additions, rental agreement updates, and vehicle availability checks.
+
+Expected Outcome:
+A detailed analysis of various operational scenarios and how the database design accommodates these situations, leveraging the one-to-one relationship.
+
+Scenario Analysis for "AutoRent" Database:
+
+1. New Vehicle Additions:
+   - When a new vehicle is added to the fleet, a new record is created in the Vehicles table.
+   - Initially, the RentalAgreementID column for the new vehicle will be NULL, indicating that the vehicle is available and not currently rented out.
+   - Example:
+     ```
+     INSERT INTO Vehicles (Make, Model, Year, VIN, LicensePlate, Status)
+     VALUES ('Toyota', 'Camry', 2024, 'JT2BG22K3W0012345', 'ABC1234', 'Available');
+     ```
+
+2. Creating a New Rental Agreement:
+   - When a rental agreement is created, a new record is inserted into the Rental_Agreements table.
+   - The VehicleID column in the Rental_Agreements table will reference the VehicleID of the rented vehicle.
+   - The RentalAgreementID column in the Vehicles table will be updated to reference the new rental agreement, and the vehicle's status will be updated to 'Rented'.
+   - Example:
+     ```
+     INSERT INTO Rental_Agreements (VehicleID, CustomerID, RentalStartDate, RentalEndDate, TotalCost)
+     VALUES (1, 101, '2024-06-01', '2024-06-10', 500.00);
+
+     UPDATE Vehicles
+     SET RentalAgreementID = 1, Status = 'Rented'
+     WHERE VehicleID = 1;
+     ```
+
+3. Updating a Rental Agreement:
+   - If details of an existing rental agreement need to be updated (e.g., extension of rental period), the corresponding record in the Rental_Agreements table will be updated.
+   - Example:
+     ```
+     UPDATE Rental_Agreements
+     SET RentalEndDate = '2024-06-15', TotalCost = 750.00
+     WHERE RentalAgreementID = 1;
+     ```
+
+4. Concluding a Rental Agreement:
+   - When a rental agreement ends, the RentalAgreementID in the Vehicles table will be set to NULL, and the vehicle's status will be updated to 'Available'.
+   - Example:
+     ```
+     UPDATE Vehicles
+     SET RentalAgreementID = NULL, Status = 'Available'
+     WHERE VehicleID = 1;
+
+     DELETE FROM Rental_Agreements
+     WHERE RentalAgreementID = 1;
+     ```
+
+5. Vehicle Availability Checks:
+   - To check vehicle availability, query the Vehicles table where the Status is 'Available' and RentalAgreementID is NULL.
+   - Example:
+     ```
+     SELECT * FROM Vehicles
+     WHERE Status = 'Available' AND RentalAgreementID IS NULL;
+     ```

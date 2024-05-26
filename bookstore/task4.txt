@@ -1,0 +1,28 @@
+Task 4: Database Normalization Analysis
+
+Objective:
+Provide a written analysis explaining how your schema design adheres to the principles of normalization. Discuss specific examples from your design that demonstrate 1NF, 2NF, and 3NF.
+
+Expected Outcome:
+A comprehensive analysis document explaining the normalization process applied to the "BookHaven" database schema, with examples highlighting each normal form.
+
+Normalization Analysis for "BookHaven" Database Schema:
+
+1. First Normal Form (1NF):
+   - Principle: Ensure that the table has a primary key and that each column contains atomic, indivisible values.
+   - Example: 
+     - In the Books table, each column (BookID, Title, Genre, ISBN, PublicationDate, AuthorID) contains atomic values. For instance, the Title column only contains a single title for each book, and the ISBN column contains a single unique identifier for each book. 
+     - The primary key (BookID) uniquely identifies each book in the Books table.
+
+2. Second Normal Form (2NF):
+   - Principle: Ensure that the table is in 1NF and that all non-key columns are fully functionally dependent on the primary key.
+   - Example:
+     - In the Transactions table, the primary key is TransactionID. All non-key columns (CustomerID, BookID, TransactionDate, Quantity, TotalPrice) are fully dependent on TransactionID. 
+     - There are no partial dependencies; each non-key column relates directly to the unique transaction represented by the primary key.
+
+3. Third Normal Form (3NF):
+   - Principle: Ensure that the table is in 2NF and that all the columns are not only fully functionally dependent on the primary key but also that there are no transitive dependencies.
+   - Example:
+     - In the Customers table, the primary key is CustomerID. All other columns (FirstName, LastName, Email, Phone, Address) depend only on CustomerID. There are no transitive dependencies because none of the non-key columns depend on another non-key column.
+     - Similarly, in the Books table, all columns (BookID, Title, Genre, ISBN, PublicationDate, AuthorID) are directly dependent on BookID, and there are no transitive dependencies among the columns.
+     
